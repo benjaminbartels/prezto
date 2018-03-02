@@ -26,5 +26,8 @@ export PATH=$GOPATH/bin:$PATH
 # Java
 #export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 
-#FlameGraph
+# FlameGraph
 export PATH=$HOME/FlameGraph:$PATH
+
+# proxy-switcher
+export PATH=$HOME/proxy-switcher:$PATH
