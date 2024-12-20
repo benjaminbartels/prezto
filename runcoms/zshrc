@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 #
 # Executes commands at the start of an interactive session.
 #
@@ -10,4 +17,50 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+zstyle -d ':completion:*' format
+zstyle ':completion:*:descriptions' format '[%d]'
+
+# Go
+export GOPATH=$HOME/code/go
+export PATH=$GOPATH/bin:$PATH
+export PATH=/usr/local/go/bin:$PATH
+export GOCACHE_PATH=/Users/benjamin.bartels/Library/Caches/go-build
+
+# Bestow GitHub
+export GITHUB_TOKEN=$(gh auth status -t | grep "Token:" | cut -d ' ' -f5 | head -n 1)
+export GITHUB_OAUTH_TOKEN=$GITHUB_TOKEN
+export GOPRIVATE="github.com/bestowinc,github.com/Bestowinc"
+git config --global url."https://${GITHUB_TOKEN}:x-oauth-basic@github.com".insteadOf "https://github.com"
+
+# Bestow GCP
+source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc  #TODO: use zinit snippet
+source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc #TODO: use zinit snippet
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+#Scripts
+alias fixclusters="~/code/scripts/setup-clusters.sh" #TODO: move this
+
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+
+# # Python
+# alias python=python3
+# export PATH=/usr/local/go/bin:$PATH
+# export PATH=$HOME/.local/bin:$PATH
+
+# # AWS
+# alias ars='~/.local/bin/aws-role-switcher'
+
+# Android
+# ANDROID_HOME="/home/$USER/android"
+# export ANDROID_HOME
+# export PATH=$PATH:$ANDROID_HOME/cmdline-tools/tools/bin
+# export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# Shell integrations
+eval "$(fzf --zsh)"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
