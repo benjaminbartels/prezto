@@ -26,6 +26,7 @@ export PATH=$GOPATH/bin:$PATH
 export PATH=/usr/local/go/bin:$PATH
 export GOCACHE_PATH=/Users/benjamin.bartels/Library/Caches/go-build
 
+if [[ "$(hostname)" == "Bens-MacBook-Pro.local" ]]; then
 # Bestow GitHub
 export GITHUB_TOKEN=$(gh auth status -t | grep "Token:" | cut -d ' ' -f5 | head -n 1)
 export GITHUB_OAUTH_TOKEN=$GITHUB_TOKEN
@@ -39,6 +40,7 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 #Scripts
 alias fixclusters="~/code/scripts/setup-clusters.sh" #TODO: move this
+fi
 
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
